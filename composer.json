@@ -1,5 +1,5 @@
 {
-    "name": "waughj/image-slider-html",
+    "name": "waughj/html-image-slider",
     "description": "Class that automatically generates image slider.",
     "require": {
         "waughj/html-image-responsive": "*"
