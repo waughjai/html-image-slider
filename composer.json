@@ -1,0 +1,22 @@
+{
+    "name": "waughj/image-slider-html",
+    "description": "Class that automatically generates image slider.",
+    "require": {
+        "waughj/html-image-responsive": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^7.5"
+    },
+    "license": "GPL-2.0-or-later",
+    "authors": [
+        {
+            "name": "Jaimeson Waugh",
+            "email": "waughjai@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "WaughJ\\HTMLImageSlider\\": "src/"
+        }
+    }
+}
