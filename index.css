@@ -20,9 +20,6 @@
 	left: 50%;
 	transform: translate( -50%, -50% );
 	top: 50%;
-	animation-name: "waj-slider";
-	animation-duration: 3s;
-	animation-iteration-count: infinite;
 }
 
 .waj-image-slider
