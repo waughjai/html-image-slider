@@ -3,27 +3,40 @@
 declare( strict_types = 1 );
 namespace WaughJ\HTMLImageSlider
 {
+	use WaughJ\File\File;
 	use WaughJ\FileLoader\FileLoader;
 	use WaughJ\HTMLImageResponsive\HTMLImageResponsive;
 
 	class HTMLImageSlider
 	{
-		public function __construct( array $images, array $sizes, FileLoader $loader = null )
+		public function __construct( array $images )
 		{
 			$this->images = [];
-			$i = 1;
+			$i = 0;
 			foreach ( $images as $image )
 			{
-				$this->images[] = new HTMLImageResponsive
-				(
-					$image[ 'base' ],
-					$image[ 'ext' ],
-					$sizes,
-					$loader,
-					[ 'class' => 'waj-image-slider-item', 'id' => "waj-image-slider-item-{$i}" ]
-				);
+				$this->images[] = $image->addToClass( 'waj-image-slider-item' )->setAttribute( 'id', "waj-image-slider-item-{$i}" );
 				$i++;
 			}
+		}
+
+		public static function generateSimple( array $image_data, array $sizes, FileLoader $loader = null ) : HTMLImageSlider
+		{
+			$images = [];
+			foreach ( $image_data as $image )
+			{
+				if ( is_a( $image, File::class ) )
+				{
+					$images[] = new HTMLImageResponsive
+					(
+						$image->getBaseFilename(),
+						$image->getExtension(),
+						$sizes,
+						$loader
+					);
+				}
+			}
+			return new HTMLImageSlider( $images );
 		}
 
 		public function __toString()
