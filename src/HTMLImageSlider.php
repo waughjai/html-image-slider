@@ -12,7 +12,7 @@ namespace WaughJ\HTMLImageSlider
 		public function __construct( array $images )
 		{
 			$this->images = [];
-			$i = 0;
+			$i = 1;
 			foreach ( $images as $image )
 			{
 				$this->images[] = $image->addToClass( 'waj-image-slider-item' )->setAttribute( 'id', "waj-image-slider-item-{$i}" );
@@ -23,17 +23,18 @@ namespace WaughJ\HTMLImageSlider
 		public static function generateSimple( array $image_data, array $sizes, FileLoader $loader = null ) : HTMLImageSlider
 		{
 			$images = [];
-			foreach ( $image_data as $image )
+			foreach ( $image_data as $image_item )
 			{
-				if ( is_a( $image, File::class ) )
+				if ( is_a( $image_item, File::class ) )
 				{
-					$images[] = new HTMLImageResponsive
+					$image = new HTMLImageResponsive
 					(
-						$image->getBaseFilename(),
-						$image->getExtension(),
+						$image_item->getBaseFilename(),
+						$image_item->getExtension(),
 						$sizes,
 						$loader
 					);
+					$images[] = $image;
 				}
 			}
 			return new HTMLImageSlider( $images );

@@ -3,7 +3,7 @@
     "description": "Class that automatically generates image slider.",
     "require": {
         "waughj/file": ">=0.2.0",
-        "waughj/html-image": ">=0.5.0",
+        "waughj/html-image": ">=0.5.1",
         "waughj/html-image-responsive": "*"
     },
     "require-dev": {
