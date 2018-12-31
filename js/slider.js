@@ -1,6 +1,6 @@
 ( function()
 {
-	const FirstItem = document.getElementById( 'waj-image-slider-item-0' );
+	const FirstItem = document.getElementById( 'waj-image-slider-item-1' );
 	const FirstImage = new Image();
 	FirstImage.onload = function()
 	{
