@@ -58,4 +58,33 @@ class HTMLImageSliderTest extends TestCase
 		$this->assertContains( ' class="waj-image-slider-item"', $slider->getHTML() );
 		$this->assertContains( ' id="waj-image-slider-item-3"', $slider->getHTML() );
 	}
+
+	public function testZoom()
+	{
+		$sizes = [ [ 'w' => '500', 'h' => '334' ], [ 'w' => '1000', 'h' => '667' ], [ 'w' => '2000', 'h' => '1333' ], [ 'w' => '3000', 'h' => '2000' ] ];
+		$loader = new FileLoader([ 'directory-url' => 'http://localhost/slider', 'shared-directory' => 'img' ]);
+		$slider = HTMLImageSlider::generateSimple
+		(
+			[
+				new File( 'water', 'png' ),
+				new File( 'bridge', 'png' ),
+				new File( 'clear', 'png' )
+			],
+			$sizes,
+			$loader
+		);
+		$this->assertContains( ' class="waj-image-slider"', $slider->getHTML() );
+		$slider = HTMLImageSlider::generateSimple
+		(
+			[
+				new File( 'water', 'png' ),
+				new File( 'bridge', 'png' ),
+				new File( 'clear', 'png' )
+			],
+			$sizes,
+			$loader,
+			true
+		);
+		$this->assertContains( ' class="waj-image-slider waj-image-slider-zoom"', $slider->getHTML() );
+	}
 }
