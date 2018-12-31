@@ -4,7 +4,8 @@
     "require": {
         "waughj/file": ">=0.2.0",
         "waughj/html-image": ">=0.5.2",
-        "waughj/html-image-responsive": "*"
+        "waughj/html-image-responsive": "*",
+        "waughj/html-picture": ">=0.1.1"
     },
     "require-dev": {
         "phpunit/phpunit": "^7.5"

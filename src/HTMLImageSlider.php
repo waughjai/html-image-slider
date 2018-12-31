@@ -6,6 +6,8 @@ namespace WaughJ\HTMLImageSlider
 	use WaughJ\File\File;
 	use WaughJ\FileLoader\FileLoader;
 	use WaughJ\HTMLImageResponsive\HTMLImageResponsive;
+	use WaughJ\HTMLImage\HTMLImage;
+	use WaughJ\HTMLPicture\HTMLPicture;
 
 	class HTMLImageSlider
 	{
@@ -15,7 +17,18 @@ namespace WaughJ\HTMLImageSlider
 			$i = 1;
 			foreach ( $images as $image )
 			{
-				$this->images[] = $image->addToClass( 'waj-image-slider-item' )->setAttribute( 'id', "waj-image-slider-item-{$i}" );
+				if ( is_a( $image, HTMLImage::class ) || is_subclass_of( $image, HTMLImage::class ) )
+				{
+					$this->images[] = $image->addToClass( 'waj-image-slider-item' )->setAttribute( 'id', "waj-image-slider-item-{$i}" );
+				}
+				else if ( is_a( $image, HTMLPicture::class ) || is_subclass_of( $image, HTMLPicture::class ) )
+				{
+					$this->images[] = $image->changeFallbackImage( $image->getFallbackImage()->addToClass( 'waj-image-slider-item' )->setAttribute( 'id', "waj-image-slider-item-{$i}" ) );
+				}
+				else
+				{
+					throw new \Exception( get_class($image) . " is an invalid image type for HTMLImageSlider class." );
+				}
 				$i++;
 			}
 			$this->zoom = $zoom;

@@ -3,6 +3,7 @@
 use PHPUnit\Framework\TestCase;
 use WaughJ\HTMLImageResponsive\HTMLImageResponsive;
 use WaughJ\HTMLImageSlider\HTMLImageSlider;
+use WaughJ\HTMLPicture\HTMLPicture;
 use WaughJ\File\File;
 use WaughJ\FileLoader\FileLoader;
 
@@ -86,5 +87,35 @@ class HTMLImageSliderTest extends TestCase
 			true
 		);
 		$this->assertContains( ' class="waj-image-slider waj-image-slider-zoom"', $slider->getHTML() );
+	}
+
+	public function testPicture()
+	{
+		$sizes = [ [ 'w' => '500', 'h' => '334' ], [ 'w' => '1000', 'h' => '667' ], [ 'w' => '2000', 'h' => '1333' ], [ 'w' => '3000', 'h' => '2000' ] ];
+		$loader = new FileLoader([ 'directory-url' => 'http://localhost/slider', 'shared-directory' => 'img' ]);
+		$image_data =
+		[
+			new File( 'water', 'png' ),
+			new File( 'bridge', 'png' ),
+			new File( 'clear', 'png' )
+		];
+
+		$images = [];
+		foreach ( $image_data as $image_item )
+		{
+			$image = new HTMLPicture
+			(
+				$image_item->getBaseFilename(),
+				$image_item->getExtension(),
+				$sizes,
+				[ 'loader' => $loader ]
+			);
+			$images[] = $image;
+		}
+
+		$slider = new HTMLImageSlider( $images );
+		$this->assertContains( ' class="waj-image-slider"', $slider->getHTML() );
+		$this->assertContains( ' class="waj-image-slider-item"', $slider->getHTML() );
+		$this->assertContains( ' id="waj-image-slider-item-3"', $slider->getHTML() );
 	}
 }
