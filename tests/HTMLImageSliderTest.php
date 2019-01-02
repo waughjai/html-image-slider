@@ -103,7 +103,7 @@ class HTMLImageSliderTest extends TestCase
 		$images = [];
 		foreach ( $image_data as $image_item )
 		{
-			$image = new HTMLPicture
+			$image = HTMLPicture::generate
 			(
 				$image_item->getBaseFilename(),
 				$image_item->getExtension(),
