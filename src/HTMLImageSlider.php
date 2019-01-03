@@ -8,10 +8,12 @@ namespace WaughJ\HTMLImageSlider
 	use WaughJ\HTMLImageResponsive\HTMLImageResponsive;
 	use WaughJ\HTMLImage\HTMLImage;
 	use WaughJ\HTMLPicture\HTMLPicture;
+	use WaughJ\HTMLAttributeList\HTMLAttributeList;
+	use function WaughJ\TestHashItem\TestHashItemString;
 
 	class HTMLImageSlider
 	{
-		public function __construct( array $images, bool $zoom = false )
+		public function __construct( array $images, bool $zoom = false, array $container_attributes = [] )
 		{
 			$this->images = [];
 			$i = 1;
@@ -32,6 +34,9 @@ namespace WaughJ\HTMLImageSlider
 				$i++;
 			}
 			$this->zoom = $zoom;
+			$this->extra_classes = TestHashItemString( $container_attributes, 'class', null );
+			unset( $container_attributes[ 'class' ] );
+			$this->container_attributes = new HTMLAttributeList( $container_attributes );
 		}
 
 		public static function generateSimple( array $image_data, array $sizes, FileLoader $loader = null, bool $zoom = false ) : HTMLImageSlider
@@ -61,7 +66,7 @@ namespace WaughJ\HTMLImageSlider
 
 		public function getHTML() : string
 		{
-			$content = "<div id=\"waj-image-slider\"{$this->getClassAttribute()}>";
+			$content = "<div id=\"waj-image-slider\"{$this->getClassAttribute()}{$this->container_attributes->getAttributesText()}>";
 			foreach ( $this->images as $image )
 			{
 				$content .= $image->getHTML();
@@ -72,7 +77,7 @@ namespace WaughJ\HTMLImageSlider
 
 		private function getClassAttribute() : string
 		{
-			return " class=\"waj-image-slider{$this->getZoomClass()}\"";
+			return " class=\"waj-image-slider{$this->getZoomClass()}{$this->getExtraClasses()}\"";
 		}
 
 		private function getZoomClass() : string
@@ -80,6 +85,13 @@ namespace WaughJ\HTMLImageSlider
 			return ( ( $this->zoom ) ? ' waj-image-slider-zoom' : '' );
 		}
 
+		private function getExtraClasses() : string
+		{
+			return ( $this->extra_classes === null ) ? '' : " {$this->extra_classes}";
+		}
+
 		private $images;
+		private $container_attributes;
+		private $extra_classes;
 	}
 }

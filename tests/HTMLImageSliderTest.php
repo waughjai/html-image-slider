@@ -113,9 +113,10 @@ class HTMLImageSliderTest extends TestCase
 			$images[] = $image;
 		}
 
-		$slider = new HTMLImageSlider( $images );
-		$this->assertContains( ' class="waj-image-slider"', $slider->getHTML() );
+		$slider = new HTMLImageSlider( $images, false, [ 'class' => 'something', 'width' => 200 ] );
 		$this->assertContains( ' class="waj-image-slider-item"', $slider->getHTML() );
 		$this->assertContains( ' id="waj-image-slider-item-3"', $slider->getHTML() );
+		$this->assertContains( ' class="waj-image-slider something"', $slider->getHTML() );
+		$this->assertContains( ' width="200"', $slider->getHTML() );
 	}
 }
