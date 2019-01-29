@@ -9,8 +9,8 @@
 		Fading: 1
 	};
 	const OriginalItemWidth = 100;
-	const OriginalItemWidthSpeed = 0.5;
-	const ItemWidthDeceleration = 1.008;
+	const OriginalItemWidthSpeed = 0.6;
+	const ItemWidthDeceleration = 1.007;
 	const ItemFadeSpeed = 5000;
 	const ChangeDelay = 120;
 
@@ -112,4 +112,3 @@
 	requestAnimationFrame(Update);
 	window.addEventListener('resize', SetContainerHeight);
 })();
-

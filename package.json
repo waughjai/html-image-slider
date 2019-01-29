@@ -1,0 +1,24 @@
+{
+  "name": "html-image-slider",
+  "version": "1.0.0",
+  "description": "Class that automatically generates image slider.",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "dependencies": {
+    "babel-cli": "^6.26.0",
+    "uglify-es": "^3.3.9",
+    "uglifycss": "^0.0.29"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": ".git"
+  },
+  "author": "Jaimeson Waugh",
+  "license": "ISC"
+}
