@@ -26,16 +26,22 @@
 	const SetImagePriority = function()
 	{
 		let PriorityCountdown = Items.length;
+		// Current highest priority, then gradually going down next items.
 		for ( let i = CurrentItem; i < Items.length; i++ )
 		{
 			Items[ i ].style.zIndex = PriorityCountdown;
 			PriorityCountdown--;
 		}
+
+		// & then priority continues down from start till we're back to current ( going through all items ).
 		for ( let j = 0; j < CurrentItem; j++ )
 		{
 			Items[ j ].style.zIndex = PriorityCountdown;
 			PriorityCountdown--;
 		}
+
+		// If current is 3 out o' 6:
+		// From highest to lowest priority: 3, 4, 5, 0, 1, 2
 	};
 
 	// Ensure container keeps proportions with original item height & doesn't grow as current image zooms in.
