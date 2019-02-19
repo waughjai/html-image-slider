@@ -3,6 +3,7 @@
 	const FirstItem = document.getElementById( 'waj-image-slider-item-1' );
 	const Container = document.getElementById( 'waj-image-slider' );
 	const ZoomsIn = Container.classList.contains( 'waj-image-slider-zoom' );
+	const ShowButtons = Container.classList.contains( 'waj-image-slider-show-buttons' );
 	const ItemClass = 'waj-image-slider-item';
 	const Items = document.getElementsByClassName( ItemClass );
 	const SliderStates =
@@ -73,6 +74,10 @@
 		SetImagePriority();
 	};
 
+	const ForceToCertainSlide = function( SlideNumber )
+	{
+	};
+
 	const Update = function( Timestamp )
 	{
 		switch ( CurrentSliderState )
@@ -140,4 +145,12 @@
 	SetImagePriority();
 	requestAnimationFrame( Update );
 	window.addEventListener( 'resize', SetContainerHeight );
+
+	if ( ShowButtons )
+	{
+		for ( let i = 0; i < Items.length; i++ )
+		{
+
+		}
+	}
 }());

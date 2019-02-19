@@ -9,11 +9,13 @@ namespace WaughJ\HTMLImageSlider
 	use WaughJ\HTMLImage\HTMLImage;
 	use WaughJ\HTMLPicture\HTMLPicture;
 	use WaughJ\HTMLAttributeList\HTMLAttributeList;
+	use WaughJ\VerifiedArgumentsSameType\VerifiedArgumentsSameType;
 	use function WaughJ\TestHashItem\TestHashItemString;
+	use function WaughJ\TestHashItem\TestHashItemIsTrue;
 
 	class HTMLImageSlider
 	{
-		public function __construct( array $images, bool $zoom = false, array $container_attributes = [] )
+		public function __construct( array $images, array $options = [], array $container_attributes = [] )
 		{
 			$this->images = [];
 			$i = 1;
@@ -33,7 +35,7 @@ namespace WaughJ\HTMLImageSlider
 				}
 				$i++;
 			}
-			$this->zoom = $zoom;
+			$this->options = new VerifiedArgumentsSameType( $options, self::DEFAULT_OPTIONS );
 			$this->extra_classes = TestHashItemString( $container_attributes, 'class', null );
 			unset( $container_attributes[ 'class' ] );
 			$this->container_attributes = new HTMLAttributeList( $container_attributes );
@@ -77,21 +79,48 @@ namespace WaughJ\HTMLImageSlider
 
 		private function getClassAttribute() : string
 		{
-			return " class=\"waj-image-slider{$this->getZoomClass()}{$this->getExtraClasses()}\"";
+			$classes = implode( ' ', $this->getClasses() );
+			return " class=\"{$classes}\"";
 		}
 
-		private function getZoomClass() : string
+		private function getClasses() : array
 		{
-			return ( ( $this->zoom ) ? ' waj-image-slider-zoom' : '' );
+			return array_merge( [ 'waj-image-slider' ], $this->getOptionClasses(), $this->getExtraClasses() );
 		}
 
-		private function getExtraClasses() : string
+		private function getOptionClasses() : array
 		{
-			return ( $this->extra_classes === null ) ? '' : " {$this->extra_classes}";
+			$extra_options = [];
+			foreach ( self::OPTION_CLASSES as $option => $option_class )
+			{
+				if ( $this->options->get( $option ) )
+				{
+					$extra_options[] = $option_class;
+				}
+			}
+			return $extra_options;
 		}
+
+		private function getExtraClasses() : array
+		{
+			return ( $this->extra_classes === null ) ? [] : [ $this->extra_classes ];
+		}
+
+		const DEFAULT_OPTIONS =
+		[
+			'zoom' => false,
+			'show-buttons' => false
+		];
+
+		const OPTION_CLASSES =
+		[
+			'zoom' => 'waj-image-slider-zoom',
+			'show-buttons' => 'waj-image-slider-show-buttons'
+		];
 
 		private $images;
 		private $container_attributes;
 		private $extra_classes;
+		private $options;
 	}
 }
