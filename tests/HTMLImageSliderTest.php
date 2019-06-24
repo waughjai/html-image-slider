@@ -34,10 +34,10 @@ class HTMLImageSliderTest extends TestCase
 		}
 
 		$slider = new HTMLImageSlider( $images );
-		$this->assertContains( ' srcset="http://localhost/slider/img/water-500x334.png 500w, http://localhost/slider/img/water-1000x667.png 1000w, http://localhost/slider/img/water-2000x1333.png 2000w, http://localhost/slider/img/water-3000x2000.png 3000w"', $slider->getHTML() );
-		$this->assertContains( ' srcset="http://localhost/slider/img/bridge-500x334.png 500w, http://localhost/slider/img/bridge-1000x667.png 1000w, http://localhost/slider/img/bridge-2000x1333.png 2000w, http://localhost/slider/img/bridge-3000x2000.png 3000w"', $slider->getHTML() );
-		$this->assertContains( ' class="waj-image-slider-item"', $slider->getHTML() );
-		$this->assertContains( ' id="waj-image-slider-item-3"', $slider->getHTML() );
+		$this->assertStringContainsString( ' srcset="http://localhost/slider/img/water-500x334.png 500w, http://localhost/slider/img/water-1000x667.png 1000w, http://localhost/slider/img/water-2000x1333.png 2000w, http://localhost/slider/img/water-3000x2000.png 3000w"', $slider->getHTML() );
+		$this->assertStringContainsString( ' srcset="http://localhost/slider/img/bridge-500x334.png 500w, http://localhost/slider/img/bridge-1000x667.png 1000w, http://localhost/slider/img/bridge-2000x1333.png 2000w, http://localhost/slider/img/bridge-3000x2000.png 3000w"', $slider->getHTML() );
+		$this->assertStringContainsString( ' class="waj-image-slider-item"', $slider->getHTML() );
+		$this->assertStringContainsString( ' id="waj-image-slider-item-3"', $slider->getHTML() );
 	}
 
 	public function testSimple()
@@ -54,10 +54,10 @@ class HTMLImageSliderTest extends TestCase
 			$sizes,
 			$loader
 		);
-		$this->assertContains( ' srcset="http://localhost/slider/img/water-500x334.png 500w, http://localhost/slider/img/water-1000x667.png 1000w, http://localhost/slider/img/water-2000x1333.png 2000w, http://localhost/slider/img/water-3000x2000.png 3000w"', $slider->getHTML() );
-		$this->assertContains( ' srcset="http://localhost/slider/img/bridge-500x334.png 500w, http://localhost/slider/img/bridge-1000x667.png 1000w, http://localhost/slider/img/bridge-2000x1333.png 2000w, http://localhost/slider/img/bridge-3000x2000.png 3000w"', $slider->getHTML() );
-		$this->assertContains( ' class="waj-image-slider-item"', $slider->getHTML() );
-		$this->assertContains( ' id="waj-image-slider-item-3"', $slider->getHTML() );
+		$this->assertStringContainsString( ' srcset="http://localhost/slider/img/water-500x334.png 500w, http://localhost/slider/img/water-1000x667.png 1000w, http://localhost/slider/img/water-2000x1333.png 2000w, http://localhost/slider/img/water-3000x2000.png 3000w"', $slider->getHTML() );
+		$this->assertStringContainsString( ' srcset="http://localhost/slider/img/bridge-500x334.png 500w, http://localhost/slider/img/bridge-1000x667.png 1000w, http://localhost/slider/img/bridge-2000x1333.png 2000w, http://localhost/slider/img/bridge-3000x2000.png 3000w"', $slider->getHTML() );
+		$this->assertStringContainsString( ' class="waj-image-slider-item"', $slider->getHTML() );
+		$this->assertStringContainsString( ' id="waj-image-slider-item-3"', $slider->getHTML() );
 	}
 
 	public function testZoom()
@@ -74,7 +74,7 @@ class HTMLImageSliderTest extends TestCase
 			$sizes,
 			$loader
 		);
-		$this->assertContains( ' class="waj-image-slider"', $slider->getHTML() );
+		$this->assertStringContainsString( ' class="waj-image-slider"', $slider->getHTML() );
 		$slider = HTMLImageSlider::generateSimple
 		(
 			[
@@ -86,7 +86,7 @@ class HTMLImageSliderTest extends TestCase
 			$loader,
 			true
 		);
-		$this->assertContains( ' class="waj-image-slider waj-image-slider-zoom"', $slider->getHTML() );
+		$this->assertStringContainsString( ' class="waj-image-slider waj-image-slider-zoom"', $slider->getHTML() );
 	}
 
 	public function testPicture()
@@ -113,10 +113,10 @@ class HTMLImageSliderTest extends TestCase
 			$images[] = $image;
 		}
 
-		$slider = new HTMLImageSlider( $images, false, [ 'class' => 'something', 'width' => 200 ] );
-		$this->assertContains( ' class="waj-image-slider-item"', $slider->getHTML() );
-		$this->assertContains( ' id="waj-image-slider-item-3"', $slider->getHTML() );
-		$this->assertContains( ' class="waj-image-slider something"', $slider->getHTML() );
-		$this->assertContains( ' width="200"', $slider->getHTML() );
+		$slider = new HTMLImageSlider( $images, [ 'zoom' => false ], [ 'class' => 'something', 'width' => 200 ] );
+		$this->assertStringContainsString( ' class="waj-image-slider-item"', $slider->getHTML() );
+		$this->assertStringContainsString( ' id="waj-image-slider-item-3"', $slider->getHTML() );
+		$this->assertStringContainsString( ' class="waj-image-slider something"', $slider->getHTML() );
+		$this->assertStringContainsString( ' width="200"', $slider->getHTML() );
 	}
 }
